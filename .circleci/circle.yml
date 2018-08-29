@@ -1,14 +1,17 @@
-version: 2.0
-machine:
-  python:
-    version: 3.5.2
-dependencies:
-  override:
-    - pip install -r requirements.txt
-test:
-  override:
-    - nosetests test/math-test.py
-  post:
-    - coverage run src/*.py
-    - coverage report
-    - coveralls
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.2-stretch-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install Python deps in a venv
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements/dev.txt
+      - run:
+          command: |
+            . venv/bin/activate
+            python -m pytest test/math-test.py
