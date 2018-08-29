@@ -6,7 +6,7 @@ class Math():
             return value1 + value2
 
     __fib_cache = {}
-    def generate_fibonacci(length):
+    def generate_fibonacci(self, length):
         if length in Math.__fib_cache:
             return Math.__fib_cache[length]
         else:
@@ -14,7 +14,7 @@ class Math():
                 return 0
             if length == 1 or length == 2:
                 return 1
-            Math.__fib_cache[length] = Math.generate_fibonacci(length-1) + Math.generate_fibonacci(length-2)
+            Math.__fib_cache[length] = Math().generate_fibonacci(length-1) + Math().generate_fibonacci(length-2)
             return Math.__fib_cache[length]
 
 

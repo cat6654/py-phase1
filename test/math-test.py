@@ -1,14 +1,8 @@
-import unittest
+import pytest
 from src.math import Math
 
-class MathTest(unittest.TestCase):
-    def test_addition(self):
-        # Make test fail
-        self.assertEqual(Math.addition(4, 4), 8)
 
-    def test_fibonacci(self):
-        actual = Math.generate_fibonacci(11)
-        expected = 89
-        self.assertEqual(
-            actual, expected, 'Actual value {} is different from Expected {} for number 11'.format(actual, expected)
-        )
+def test_fibonacci():
+    actual = Math().generate_fibonacci(11)
+    expected = 89
+    assert actual == expected, 'Actual value {} is different from Expected {} for number 11'.format(actual, expected)
