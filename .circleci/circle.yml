@@ -12,6 +12,7 @@ jobs:
             . venv/bin/activate
             pip install -r requirements/dev.txt
       - run:
+          name: Runnning tests
           command: |
             . venv/bin/activate
-            python -m pytest tests/test_phase_one.py
+            py.test tests/test_phase_one.py
