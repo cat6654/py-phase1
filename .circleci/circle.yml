@@ -14,4 +14,4 @@ jobs:
       - run:
           command: |
             . venv/bin/activate
-            python -m pytest test/test_math.py
+            python -m pytest tests/test_phase_one.py
