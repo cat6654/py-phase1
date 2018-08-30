@@ -1,10 +1,4 @@
 class Math():
-    def addition(value1, value2):
-        if not isinstance(value1, int) and not isinstance(value2, int):
-            return 'Invalid input'
-        else:
-            return value1 + value2
-
     __fib_cache = {}
     def generate_fibonacci(self, length):
         if length in Math.__fib_cache:
