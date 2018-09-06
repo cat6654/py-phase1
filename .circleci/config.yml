@@ -15,4 +15,4 @@ jobs:
           name: Runnning tests
           command: |
             . venv/bin/activate
-            pytest tests/test_phase_one.py
+            pytest tests/test_phase_two.py
