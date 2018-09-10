@@ -21,3 +21,5 @@ urllib3==1.23
 wrapt==1.10.8
 pytest-parallel==0.0.3
 pytest-rerunfailures==4.1
+pytest-forked==0.2
+pytest-xdist==1.23.0

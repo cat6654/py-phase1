@@ -15,7 +15,7 @@ jobs:
           name: Runnning tests phase 2
           command: |
             . venv/bin/activate
-            pytest tests/test_phase_two.py --tests-per-worker 4
+            pytest tests/test_phase_two.py -n 4
       - run:
           name: Runnning tests phase 3
           command: |
