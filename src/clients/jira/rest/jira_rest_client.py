@@ -18,11 +18,12 @@ class JiraRestClient:
         self.number_of_instances += 1
 
     def login(self, url, user, password):
-        login = requests.get(
-            url,
-            auth=(user, password),
-        )
-        self.cookies = login.cookies
+        if self.cookies is None:
+            login = requests.get(
+                url,
+                auth=(user, password),
+            )
+            self.cookies = login.cookies
 
     def get_required_fields(self, url, project, entity):
         self.check_cookies()

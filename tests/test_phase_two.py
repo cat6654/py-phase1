@@ -16,11 +16,10 @@ config = ConfigParser(interpolation=ExtendedInterpolation())
 config.read(PATH('../resources/test_config.ini'))
 
 entities_to_delete = []
-
+jira_rest_client = JiraRestClient()
 
 @pytest.fixture
 def jira_rest_client_setup(request):
-    jira_rest_client = JiraRestClient()
     jira_rest_client.login(
         config.get('JIRA', 'jira.url.rest.auth'),
         config.get('JIRA', 'jira.user'),
