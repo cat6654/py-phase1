@@ -15,9 +15,11 @@ PATH = lambda p: os.path.abspath(
 config = ConfigParser(interpolation=ExtendedInterpolation())
 config.read(PATH('../resources/test_config.ini'))
 
+entities_to_delete = []
+
 
 @pytest.fixture
-def jira_rest_client_setup():
+def jira_rest_client_setup(request):
     jira_rest_client = JiraRestClient()
     jira_rest_client.login(
         config.get('JIRA', 'jira.url.rest.auth'),
@@ -29,6 +31,13 @@ def jira_rest_client_setup():
         config.get('JIRA', 'jira.project'),
         config.get('JIRA', 'jira.issue.type')
     )
+
+    def teardown():
+        for entity in entities_to_delete:
+            jira_rest_client.delete_given_entity(config.get('JIRA', 'jira.url.rest.create.issue'), entity)
+
+    request.addfinalizer(teardown)
+
     return jira_rest_client
 
 
@@ -81,6 +90,7 @@ def test_can_post_new_bug(jira_rest_client_setup):
     )
     assert response.status_code == 200, 'Actual status code {} is different from Expected {}'.format(
         response.status_code, 200)
+    entities_to_delete.append(message.key)
 
 
 def test_post_bug_with_missing_required_fields(jira_rest_client_setup):
@@ -143,11 +153,11 @@ def test_can_update_existing_bug(jira_rest_client_setup):
 
     message = Payload(response.text)
     print('Created entity with id = %s'.format(message.id))
+    entities_to_delete.append(message.key)
 
     fields_to_update = {'description': 'Here is random character {}'.format(random.choice(string.ascii_lowercase))}
     response = jira_rest_client_setup.update_existing_entity(
         config.get('JIRA', 'jira.url.rest.create.issue'),
-        config.get('JIRA', 'jira.project'),
         message.id,
         fields_to_update
     )
@@ -166,4 +176,3 @@ def test_can_update_existing_bug(jira_rest_client_setup):
     assert message.issues[0].get('fields').get('description') == fields_to_update.get('description'),\
         'Actual status code {} is different from Expected {}'.format(
             message.issues[0].get('fields').get('description'), fields_to_update.get('description'))
-
