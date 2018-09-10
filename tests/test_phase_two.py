@@ -13,10 +13,11 @@ PATH = lambda p: os.path.abspath(
 )
 
 config = ConfigParser(interpolation=ExtendedInterpolation())
-config.read(PATH('../resources/test_config.ini'))
+config.read_file(open(PATH('../resources/test_config.ini')))
 
 entities_to_delete = []
 jira_rest_client = JiraRestClient()
+
 
 @pytest.fixture
 def jira_rest_client_setup(request):
@@ -80,7 +81,7 @@ def test_can_post_new_bug(jira_rest_client_setup):
         response.status_code, 201)
 
     message = Payload(response.text)
-    print('Created entity with id = %s'.format(message.id))
+    print('Created entity with id = {}'.format(message.id))
 
     response = jira_rest_client_setup.search_for_entity_by_given_filter(
         config.get('JIRA', 'jira.url.rest.search.issue'),
@@ -151,7 +152,7 @@ def test_can_update_existing_bug(jira_rest_client_setup):
         response.status_code, 201)
 
     message = Payload(response.text)
-    print('Created entity with id = %s'.format(message.id))
+    print('Created entity with id = {}'.format(message.id))
     entities_to_delete.append(message.key)
 
     fields_to_update = {'description': 'Here is random character {}'.format(random.choice(string.ascii_lowercase))}
