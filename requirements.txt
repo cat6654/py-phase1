@@ -19,3 +19,5 @@ selenium==2.53.6
 six==1.10.0
 urllib3==1.23
 wrapt==1.10.8
+pytest-parallel==0.0.3
+pytest-rerunfailures==4.1
