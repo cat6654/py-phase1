@@ -12,13 +12,18 @@ class JiraRestClient:
     required_fields = {}
     cookies = None
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    number_of_instances = 0
+
+    def __init__(self):
+        self.number_of_instances += 1
 
     def login(self, url, user, password):
-        login = requests.get(
-            url,
-            auth=(user, password),
-        )
-        self.cookies = login.cookies
+        if self.cookies is None:
+            login = requests.get(
+                url,
+                auth=(user, password),
+            )
+            self.cookies = login.cookies
 
     def get_required_fields(self, url, project, entity):
         self.check_cookies()
@@ -54,7 +59,7 @@ class JiraRestClient:
             data=body
         )
 
-    def update_existing_entity(self, url, project, entity_id, fields_to_update):
+    def update_existing_entity(self, url, entity_id, fields_to_update):
         self.check_cookies()
         fields_dict = {
             'fields': {}
@@ -67,6 +72,15 @@ class JiraRestClient:
             cookies=self.cookies,
             headers={'Content-Type': 'application/json', 'Accept': 'application/json'},
             data=body
+        )
+
+    def delete_given_entity(self, url, entity_id):
+        self.check_cookies()
+
+        return requests.delete(
+            '{}{}'.format(url, entity_id),
+            cookies=self.cookies,
+            headers={'Content-Type': 'application/json', 'Accept': 'application/json'}
         )
 
     def search_for_entity_by_given_filter(self, url, project, search_filter, max_results=100):
