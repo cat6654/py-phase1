@@ -1,4 +1,4 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -12,8 +12,8 @@ class DashboardPage(BasePage):
             if self.is_user_options_menu_visible():
                 self.open_user_options_menu()
                 self.driver.find_element(*DashBoardPageLocators.LOGOUT).click()
-        except UnexpectedAlertPresentException:
-            print('UnexpectedAlertPresentException occurred.')
+        except WebDriverException:
+            print('WebDriverException occurred. Logout was not successful')
 
     def open_user_options_menu(self):
         WebDriverWait(self.driver, 10).until(
