@@ -21,3 +21,8 @@ jobs:
           command: |
             . venv/bin/activate
             pytest tests/test_phase_three.py --reruns 2
+      - run:
+          name: Runnning tests phase 4
+          command: |
+          . venv/bin/activate
+          pytest tests/test_phase_four.py
