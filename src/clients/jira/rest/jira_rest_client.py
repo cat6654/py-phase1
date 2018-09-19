@@ -43,13 +43,13 @@ class JiraRestClient:
         print('Required fields are:')
         print(self.required_fields)
 
-    def create_new_entity(self, url, project, entity, request_body=None, fill_required_fields=True):
+    def create_new_entity(self, url, project, entity, request_body=None, fill_required_fields=True, additional_fields=None):
         self.check_cookies()
 
         if not bool(self.required_fields):
             self.get_required_fields(url + 'createmeta', project, entity)
         if request_body is None:
-            body = self.generate_json_to_post_entity(project, entity, self.required_fields, fill_required_fields, 50)
+            body = self.generate_json_to_post_entity(project, entity, self.required_fields, fill_required_fields, 50, additional_fields)
         else:
             body = request_body
         return requests.post(
@@ -96,7 +96,7 @@ class JiraRestClient:
             params=query
         )
 
-    def generate_json_to_post_entity(self, project, entity, required_fields, fill_in_required_fields, string_len):
+    def generate_json_to_post_entity(self, project, entity, required_fields, fill_in_required_fields, string_len, additional_fields):
         default_fields = {
             'fields': {
                 'project': {'key': project},
@@ -104,6 +104,11 @@ class JiraRestClient:
                 'issuetype': {'name': entity}
             }
         }
+
+        if additional_fields is not None:
+            for field in additional_fields:
+                default_fields.get('fields')[field] = additional_fields.get(field)
+
         if fill_in_required_fields:
             for required_field in required_fields:
                 if required_field not in default_fields.get('fields'):

@@ -110,7 +110,8 @@ def test_post_bug_with_too_long_string_value(jira_rest_client_setup):
         config.get('JIRA', 'jira.issue.type'),
         jira_rest_client_setup.required_fields,
         True,
-        1000
+        1000,
+        None
     )
     response = jira_rest_client_setup.create_new_entity(
         config.get('JIRA', 'jira.url.rest.create.issue'),
