@@ -25,7 +25,7 @@ class SearchPageLocators(object):
     ADVANCED_SEARCH_INPUT = (By.ID, 'advanced-search')
     ISSUE_LIST = (By.XPATH, "//div[@class='search-results']//ol[@class ='issue-list']//li")
     SHOWING_TEXT = (By.XPATH, "//div[@class='issue-tools']//ul[@class='pager']//li[@class='showing']")
-    SEARCH_BUTTON = (By.XPATH, "//div[@class='search-options-container']//button")
+    SEARCH_BUTTON = (By.XPATH, "//div[@class='search-options-container']//button[@type='button']")
     NO_RESULTS_TEXT = (By.XPATH, "//div[@class='navigator-content empty-results']//h3")
     ISSUE_EDIT_VIEW_HEADER = (By.ID, 'stalker')
 

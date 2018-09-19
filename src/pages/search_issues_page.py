@@ -1,4 +1,4 @@
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -52,7 +52,11 @@ class SearchPage(BasePage):
         self.driver.find_element(*SearchPageLocators.ADVANCED_SEARCH_INPUT).send_keys(text)
 
     def click_search_button(self):
-        self.driver.find_element(*SearchPageLocators.SEARCH_BUTTON).click()
+        try:
+            self.driver.find_element(*SearchPageLocators.SEARCH_BUTTON).click()
+        except WebDriverException:
+            print('Could not click search button Trying to send ENTER key')
+            self.driver.find_element(*SearchPageLocators.ADVANCED_SEARCH_INPUT).send_keys(u'\ue007')
 
     def wait_for_edit_view_to_reload(self):
         try:
@@ -65,5 +69,7 @@ class SearchPage(BasePage):
 
     def search_for_issue_using_advanced_search(self, text):
         self.set_advanced_search_text_input(text)
+        WebDriverWait(self.driver, 10).until(
+            expected_conditions.element_to_be_clickable(SearchPageLocators.ADVANCED_SEARCH_INPUT))
         self.click_search_button()
         self.wait_for_edit_view_to_reload()
