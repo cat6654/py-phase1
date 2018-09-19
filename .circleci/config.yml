@@ -12,17 +12,7 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
       - run:
-          name: Runnning tests phase 2
-          command: |
-            . venv/bin/activate
-            pytest tests/test_phase_two.py -n 4
-      - run:
-          name: Runnning tests phase 3
-          command: |
-            . venv/bin/activate
-            pytest tests/test_phase_three.py --reruns 2
-      - run:
           name: Runnning tests phase 4
           command: |
-          . venv/bin/activate
-          pytest tests/test_phase_four.py
+            . venv/bin/activate
+            pytest tests/test_phase_four.py
