@@ -22,7 +22,7 @@ class EditIssuePage(BasePage):
         self.driver.find_element(*EditIssuePageLocators.PRIORITY_VALUE).click()
         self.driver.find_element(*EditIssuePageLocators.PRIORITY_EDIT_FORM).clear()
         self.driver.find_element(*EditIssuePageLocators.PRIORITY_EDIT_FORM).send_keys(value)
-        self.driver.find_element(*SearchPageLocators.SHOWING_TEXT).click()
+        self.driver.find_element(*EditIssuePageLocators.PRIORITY_EDIT_FORM).send_keys(u'\ue007')
 
     def get_summary_field_value(self):
         WebDriverWait(self.driver, 10).until(
