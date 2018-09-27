@@ -11,18 +11,17 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-            sudo apt-add-repository ppa:qameta/allure
             sudo apt-get update
             sudo apt-get install allure
       - run:
           name: Runnning tests phase 2 - 4
           command: |
             . venv/bin/activate
-            pytest tests/test_phase_two.py -n 4 --alluredir ./test_results
-            pytest tests/test_phase_four.py --alluredir ./test_results
-            allure serve ./test_results/
+            pytest tests/test_phase_two.py -n 4 --alluredir ./test_results/api
+            pytest tests/test_phase_four.py --alluredir ./test_results/web
           when: always
       - store_artifacts:
           path: ./test_results
+          destination: prefix
       - store_test_results:
           path: ./test_results
