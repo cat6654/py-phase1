@@ -9,7 +9,7 @@ class EditIssuePage(BasePage):
     def set_summary_field_value(self, value):
         self.driver.find_element(*EditIssuePageLocators.SUMMARY_VALUE).click()
         WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(EditIssuePageLocators.SUMMARY_EDIT_FORM)
+            expected_conditions.element_to_be_clickable(EditIssuePageLocators.SUMMARY_EDIT_FORM)
         )
         self.driver.find_element(*EditIssuePageLocators.SUMMARY_EDIT_FORM).clear()
         self.driver.find_element(*EditIssuePageLocators.SUMMARY_EDIT_FORM).send_keys(value)

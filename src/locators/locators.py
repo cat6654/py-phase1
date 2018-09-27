@@ -34,7 +34,7 @@ class EditIssuePageLocators(object):
     ASSIGN_TO_ME_LINK = (By.XPATH, "//div[@id='peoplemodule']//a[@id='assign-to-me']")
     ASSIGNEE_VALUE = (By.ID, 'assignee-val')
     SUMMARY_VALUE = (By.XPATH, "//header[@id='stalker']//h1[@id='summary-val']")
-    SUMMARY_EDIT_FORM = (By.ID, 'summary')
+    SUMMARY_EDIT_FORM = (By.XPATH, "//form[@id='summary-form']//input[@id='summary']")
     SUMMARY_EDIT_FORM_SUBMIT_BUTTON = (By.XPATH, "//form[@id='summary-form']//button[@type='submit']")
     PRIORITY_VALUE = (By.XPATH, "//div[@id='details-module']//span[@id='priority-val']")
     PRIORITY_EDIT_FORM = (By.ID, 'priority-field')
