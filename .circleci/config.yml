@@ -11,8 +11,6 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-            sudo apt-get update
-            sudo apt-get install allure
       - run:
           name: Runnning tests phase 2 - 4
           command: |
