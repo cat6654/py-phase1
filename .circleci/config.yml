@@ -27,8 +27,7 @@ jobs:
           when: always
           command: |
             . venv/bin/activate
-            export PATH="~/repo/allure-2.7.0/bin:$PATH"
-            allure generate ./test_results/web -o ./test_results_html/
+            ./allure-2.7.0/bin/allure generate ./test_results/web -o ./test_results_html/
       - store_artifacts:
           path: ./test_results_html/
           destination: tr
