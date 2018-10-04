@@ -7,10 +7,10 @@ from src.pages.base_page import BasePage
 
 class EditIssuePage(BasePage):
     def set_summary_field_value(self, value):
-        self.driver.find_element(*EditIssuePageLocators.SUMMARY_VALUE).click()
-        WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(EditIssuePageLocators.SUMMARY_EDIT_FORM)
+        WebDriverWait(self.driver, 15).until(
+            expected_conditions.element_to_be_clickable(EditIssuePageLocators.SUMMARY_VALUE)
         )
+        self.driver.find_element(*EditIssuePageLocators.SUMMARY_VALUE).click()
         self.driver.find_element(*EditIssuePageLocators.SUMMARY_EDIT_FORM).clear()
         self.driver.find_element(*EditIssuePageLocators.SUMMARY_EDIT_FORM).send_keys(value)
         self.driver.find_element(*EditIssuePageLocators.SUMMARY_EDIT_FORM_SUBMIT_BUTTON).click()
@@ -45,6 +45,6 @@ class EditIssuePage(BasePage):
     def click_assign_to_me_link(self):
         self.driver.find_element(*EditIssuePageLocators.PEOPLE_MODULE).click()
         WebDriverWait(self.driver, 10).until(
-            expected_conditions.staleness_of( self.driver.find_element(*EditIssuePageLocators.ASSIGN_TO_ME_LINK))
+            expected_conditions.staleness_of(self.driver.find_element(*EditIssuePageLocators.ASSIGN_TO_ME_LINK))
         )
         self.driver.find_element(*EditIssuePageLocators.ASSIGN_TO_ME_LINK).click()
