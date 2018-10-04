@@ -16,8 +16,7 @@ from src.pages.edit_issue_page import EditIssuePage
 from src.pages.login_page import LoginPage
 from src.pages.search_issues_page import SearchPage
 from webdriver_manager.chrome import ChromeDriverManager
-
-pytestmark = pytest.mark.webtest
+# pytestmark = pytest.mark.webtest
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
@@ -202,11 +201,11 @@ def test_update_issue(jira_rest_setup, setup_and_login, driver_setup):
         search_page.search_for_issue_using_advanced_search('reporter = currentUser() and labels = "one_defect"')
         allure.attach(driver_setup.get_screenshot_as_png(), name='search_results_for_update', attachment_type=AttachmentType.PNG)
 
-    with pytest.allure.step("Update priority field value"):
-        edit_issue_page = EditIssuePage(driver_setup)
-        edit_issue_page.set_priority_field_value(expected_priority)
     with pytest.allure.step("Update summary field value"):
+        edit_issue_page = EditIssuePage(driver_setup)
         edit_issue_page.set_summary_field_value(expected_summary)
+    with pytest.allure.step("Update priority field value"):
+        edit_issue_page.set_priority_field_value(expected_priority)
     with pytest.allure.step("Click assign to me link"):
         edit_issue_page.click_assign_to_me_link()
 
